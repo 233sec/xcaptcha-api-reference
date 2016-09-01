@@ -5,6 +5,27 @@ xCaptcha: 一個類似reCaptcha的人機驗證服務, 旨在去除傳統圖形�
 
 ## 目錄
 
+### 簽名
+
+#### 準備參數
+
+僞代碼如下:
+param = {
+    'a' => 'aaa',
+    'b' => '111',
+    'c' => '41'
+};
+
+#### 按Key的ASCII排序
+
+僞代碼如下
+ksort(param);
+
+#### 生成簽名
+
+僞代碼如下
+sign = md5(appkey + http_build_query(param) + appsecret);
+
 ### API
 
 #### /xcaptcha/api.js
@@ -45,7 +66,7 @@ function verify(){
 
     $param = [
         'k'         => $appkey,
-        'response'  => $$challenge_response,
+        'response'  => $challenge_response,
         'remoteip'  => $_SERVER['remote_addr']    // 如用CDN之類, 請使用七層方法獲取訪客IP. 若條件限制也可不傳
     ];
     ksort($param);
